@@ -1,0 +1,8 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=crlf
+
+*.scala     text
+*.sbt       text
+*.sc        text
