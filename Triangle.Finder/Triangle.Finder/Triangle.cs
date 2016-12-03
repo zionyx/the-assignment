@@ -17,6 +17,13 @@ namespace Triangle.Finder
         {
         }
 
+        /*
+         * CreateTriangle returns a new triangle type based on inputs
+         */
+        public static Triangle CreateTriangle(int a, int b, int c)
+        {
+            return null;
+        }
     }
 
     public class Equilateral : Triangle
