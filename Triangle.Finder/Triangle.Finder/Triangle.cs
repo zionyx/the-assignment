@@ -11,71 +11,73 @@ namespace Triangle.Finder
      */
     public abstract class Triangle
     {
-        protected List<double> sides;
-
+        /// <summary>
+        /// The parent class for all triangles
+        /// </summary>
         protected Triangle()
         {
-            sides = new List<double>();
         }
 
-        /*
-         * CreateTriangle returns a new triangle type based on inputs.
-         * 
-         * WIP
-         */
-        public static Triangle CreateTriangle(double a, double b, double c)
+        /// <summary>
+        /// Tries to create a triangle of specific type based on inputs.
+        /// </summary>
+        /// <param name="a">side a</param>
+        /// <param name="b">side b</param>
+        /// <param name="c">side c</param>
+        /// <returns>Equilateral, Isosceles, Scalene or NotTriangle</returns>
+        public static object CreateTriangle(double a, double b, double c)
         {
-            List<double> sides = new List<double>();
-            sides.Add(a);
-            sides.Add(b);
-            sides.Add(c);
-            sides.Sort();
+            // Starts out with NotTriangle, and work towards the triangle goal
+            object returnValue = new NotTriangle();
 
-            int counter = 0;
-            double sumOfSides = 0;
-            foreach (var side in sides)
+            // Only proceed with the acceptable length
+            if (a > 0 && b > 0 && c > 0)
             {
-                ++counter;
-                sumOfSides += side;
-            }
-            return new Equilateral();
-        }
+                // Have a list to store all sides
+                List<double> sides = new List<double>();
 
-        /*
-         * A functional programming implementation of the loop to get triangle type.
-         * 
-         * WIP
-         */
-        protected static Type TriangleType(double average, double total, double side, int count, Queue<double> sidesLeft)
-        {
-            Type triangleType = null;
+                // No length can be in negative
+                sides.Add(a);
+                sides.Add(b);
+                sides.Add(c);
 
-            if (sidesLeft.Count > 0)
-            {
-                return TriangleType((total + sidesLeft.Peek()) / (count + 1), total + sidesLeft.Peek(), sidesLeft.Dequeue(), count + 1, sidesLeft);
+                // The easiest solution to test for triangle, is to find the sides of the same length
+                switch (sides.Distinct().Count())
+                {
+                    case 1:
+                        // All sides has unique length
+                        returnValue = new Equilateral();
+                        break;
+                    case 2:
+                        // 2 sides have the same length
+                        returnValue = new Isosceles();
+                        break;
+                    case 3:
+                        // All 3 sides has the same lengths
+                        returnValue = new Scalene();
+                        break;
+                    default:
+                        break;
+
+                }
             }
 
-            switch (count)
-            {
-                case 2:
-                    if (average == side)
-                        triangleType = typeof(Isosceles);
-                    break;
-                case 3:
-                    if (average == side)
-                        triangleType = typeof(Equilateral);
-                    break;
-                default:
-                    triangleType = typeof(Scalene);
-                    break;
-            }
-            return triangleType;
+            return returnValue;
         }
     }
 
-    /*
-     * Triangle with the same length on all sides
-     */
+
+    /// <summary>
+    /// Not a triangle
+    /// </summary>
+    public class NotTriangle
+    {
+    }
+
+
+    /// <summary>
+    /// Equilateral - Triangle with the same length on all sides
+    /// </summary>
     public class Equilateral : Triangle
     {
         public Equilateral()
@@ -84,9 +86,10 @@ namespace Triangle.Finder
         }
     }
 
-    /*
-     * Triangle with 2 sides of the same length
-     */
+
+    /// <summary>
+    /// Isosceles - Triangle with 2 sides of the same length
+    /// </summary>
     public class Isosceles : Triangle
     {
         public Isosceles()
@@ -95,9 +98,10 @@ namespace Triangle.Finder
         }
     }
 
-    /*
-     * Triangle with all sides in different lengths
-     */
+
+    /// <summary>
+    /// Scalene - Triangle with all sides in different lengths
+    /// </summary>
     public class Scalene : Triangle
     {
         public Scalene()
