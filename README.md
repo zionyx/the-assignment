@@ -10,6 +10,8 @@ The resulting code and discussion is vital for us and will be used as a way for 
 
 # The assignment [![Build Status](https://ci.appveyor.com/api/projects/status/jyw39xarh9c8w20v)](https://ci.appveyor.com/project/zionyx/the-assignment)
 
+![triangle](equilateral_isosceles_scalene_triangles.jpg)
+
 ## Background
 
 + I had the initial idea to do the assignment with a new language I am still learning, Scala.
@@ -47,12 +49,13 @@ The resulting code and discussion is vital for us and will be used as a way for 
 1. In Visual Studio menu bar > **Test > Windows > Test Explorer**. 
 1. Click **Run All** in Test Explorer.
 1. Console output:
-    ```
-    ------ Run test started ------
-    NUnit Adapter 3.6.0.0: Test execution started
-    Running all tests in D:\Development\git.repos\The-Assignment\Triangle.Finder\Triangle.Finder.Test\bin\Debug\Triangle.Finder.Test.dll
-    NUnit3TestExecutor converted 4 of 4 NUnit test cases
-    NUnit Adapter 3.6.0.0: Test execution complete
-    ========== Run test finished: 4 run (0:00:00.7650438) ==========
-    ```
-1. See build status about the assignment at [Appveyor.com](https://ci.appveyor.com/project/zionyx/the-assignment).
+```
+------ Run test started ------
+NUnit Adapter 3.6.0.0: Test execution started
+Running all tests in D:\Development\git.repos\The-Assignment\Triangle.Finder\Triangle.Finder.Test\bin\Debug\Triangle.Finder.Test.dll
+NUnit3TestExecutor converted 4 of 4 NUnit test cases
+NUnit Adapter 3.6.0.0: Test execution complete
+========== Run test finished: 4 run (0:00:00.7650438) ==========
+```
+
+See build status about the assignment at [Appveyor.com](https://ci.appveyor.com/project/zionyx/the-assignment).
