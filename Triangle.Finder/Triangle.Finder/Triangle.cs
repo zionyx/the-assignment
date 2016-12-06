@@ -13,6 +13,10 @@ namespace Triangle.Finder
     {
         /// <summary>
         /// The parent class for all triangles
+        /// 
+        /// Rules that defines a triangle:
+        /// 1. All sides should have positive lengths.
+        /// 2. Any one side MUST be smaller than the sum of the 2 other sides.
         /// </summary>
         protected Triangle()
         {
@@ -27,41 +31,37 @@ namespace Triangle.Finder
         /// <returns>Equilateral, Isosceles, Scalene or NotTriangle</returns>
         public static object CreateTriangle(double a, double b, double c)
         {
-            // Starts out with NotTriangle, and work towards the triangle goal
-            object returnValue = new NotTriangle();
+            // Starts out with NotTriangle, and work towards the Equilateral triangle goal
+            // NotTriangle > Scalene > Isosceles > Equilateral
+            Type triangleType = typeof(NotTriangle);
+            object returnValue = null;
 
-            // Only proceed with the acceptable length
+            // No length can be in negative
             if (a > 0 && b > 0 && c > 0)
             {
-                // Have a list to store all sides
-                List<double> sides = new List<double>();
-
-                // No length can be in negative
-                sides.Add(a);
-                sides.Add(b);
-                sides.Add(c);
-
-                // The easiest solution to test for triangle, is to find the sides of the same length
-                switch (sides.Distinct().Count())
+                // Any individual side should not be greater than the sum of other 2 sides
+                if ((a + b) > c && (c + b) > a && (a + c) > b)
                 {
-                    case 1:
-                        // All sides has unique length
-                        returnValue = new Equilateral();
-                        break;
-                    case 2:
-                        // 2 sides have the same length
-                        returnValue = new Isosceles();
-                        break;
-                    case 3:
-                        // All 3 sides has the same lengths
-                        returnValue = new Scalene();
-                        break;
-                    default:
-                        break;
+                    // Basic triangle rule fullfilled, upgrades to Scalene
+                    triangleType = typeof(Scalene);
 
+                    // Check if any of the 2 sides are the same length
+                    if ((a == b) || (b == c) || (a == c))
+                    {
+                        // Upgrade to Isosceles
+                        triangleType = typeof(Isosceles);
+
+                        if ((a == b) && (b == c))
+                        {
+                            // Upgrade to Equilateral
+                            triangleType = typeof(Equilateral);
+                        }
+                    }
                 }
             }
 
+            // Create the object based on the outcome
+            returnValue = (object)Activator.CreateInstance(triangleType);
             return returnValue;
         }
     }
@@ -80,10 +80,6 @@ namespace Triangle.Finder
     /// </summary>
     public class Equilateral : Triangle
     {
-        public Equilateral()
-            : base()
-        {
-        }
     }
 
 
@@ -92,10 +88,6 @@ namespace Triangle.Finder
     /// </summary>
     public class Isosceles : Triangle
     {
-        public Isosceles()
-            : base()
-        {
-        }
     }
 
 
@@ -104,9 +96,5 @@ namespace Triangle.Finder
     /// </summary>
     public class Scalene : Triangle
     {
-        public Scalene()
-            : base()
-        {
-        }
     }
 }

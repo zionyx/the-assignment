@@ -40,7 +40,7 @@ namespace Triangle.Finder.Test
         }
 
         /// <summary>
-        /// With the values below, the object returned must not be any triangle type
+        /// With the values below, the object returned must not be of any triangle type
         /// </summary>
         [Test]
         public void VerifyNotTriangle()
@@ -49,6 +49,9 @@ namespace Triangle.Finder.Test
             CheckForTriangleTypes(0, 5, 6, typeof(NotTriangle));
             // Test for negative length
             CheckForTriangleTypes(3, -1, 6, typeof(NotTriangle));
+            // Test for invalid triangles
+            CheckForTriangleTypes(1, 5, 6, typeof(NotTriangle));
+            CheckForTriangleTypes(1, 3, 6, typeof(NotTriangle));
         }
 
         public void CheckForTriangleTypes(double a, double b, double c, Type expectedType)
